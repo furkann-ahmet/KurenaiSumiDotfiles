@@ -1,0 +1,15 @@
+# AGS — generated GObject types & deps (regenerated on build)
+ags/.config/ags/@girs/
+ags/.config/ags/node_modules/
+
+# wallpaper symlink, recreated by retheme.sh
+hypr/.config/hypr/current-wallpaper
+
+# logs, backups, scratch
+*.log
+*.bak
+*.bak-*
+*.tar.gz
+_pre-restore*/
+histogram:info*
+info:*

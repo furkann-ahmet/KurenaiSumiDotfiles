@@ -1,0 +1,44 @@
+# matugen — sistem geneli tema motoru
+# Renkler wallpaper'dan üretilir; her [templates.X] bir uygulamanın config'ine yazar.
+# Çalıştırma: ~/.config/matugen/retheme.sh   (reload'lar orada toplandı)
+
+[config]
+
+# --- Hyprland (pencere border renkleri) ---
+[templates.hyprland]
+input_path = "~/.config/matugen/templates/hyprland-colors.conf"
+output_path = "~/.config/hypr/colors.conf"
+
+# --- Hyprlock (kilit ekranı) — arka plan current-wallpaper symlink'inden ---
+[templates.hyprlock]
+input_path = "~/.config/matugen/templates/hyprlock.conf"
+output_path = "~/.config/hypr/hyprlock.conf"
+
+# --- Alacritty (terminal) — DEVRE DIŞI ---
+# Kurenai Sumi sabit paleti kullanıyor (~/.config/alacritty/colors.toml elle yazıldı).
+# matugen bunu ezmesin diye template kapatıldı. Tekrar matugen'e bağlamak istersen
+# bu 3 satırın yorumunu kaldır.
+# [templates.alacritty]
+# input_path = "~/.config/matugen/templates/alacritty-colors.toml"
+# output_path = "~/.config/alacritty/colors.toml"
+
+# --- Rofi (uygulama menüsü) ---
+[templates.rofi]
+input_path = "~/.config/matugen/templates/rofi-colors.rasi"
+output_path = "~/.config/rofi/colors.rasi"
+
+# --- KDE / GTK temaları: DEVRE DIŞI ---
+# Kurenai Sumi sabit KOYU palet kullanıyor. matugen bunları wallpaper'dan
+# AÇIK üretip Dolphin/Kate/GTK'yı bozuyordu → kapatıldı.
+# Geri matugen'e bağlamak istersen ilgili bloğun yorumunu kaldır.
+# [templates.kdeglobals]
+# input_path = "~/.config/matugen/templates/kdeglobals"
+# output_path = "~/.config/kdeglobals"
+#
+# [templates.gtk3]
+# input_path = "~/.config/matugen/templates/gtk-colors.css"
+# output_path = "~/.config/gtk-3.0/gtk.css"
+#
+# [templates.gtk4]
+# input_path = "~/.config/matugen/templates/gtk-colors.css"
+# output_path = "~/.config/gtk-4.0/gtk.css"

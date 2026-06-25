@@ -1,0 +1,67 @@
+// ════════════════════════════════════════════════════════════════
+//  KURENAI SUMI — Tasarım Token'ları (TEK renk/şekil/spacing kaynağı)
+//  紅墨  ·  kızıl mürekkep
+//  Bir rengi DEĞİŞTİRECEKSEN burada değiştir; tüm sistem buradan beslenir.
+// ════════════════════════════════════════════════════════════════
+
+// ─── Ana palet ───────────────────────────────────────────────────
+$rice-paper:   #F6EDE2;   // krem pirinç kâğıdı
+$ink-black:    #0F0F0F;   // sumi siyahı
+$sumi-gray:    #2A2A2A;   // mürekkep grisi
+$crimson:      #B71C1C;   // kızıl vurgu (aktif)
+$crimson-soft: #CF3A3A;   // hover / parlak kızıl
+$bronze-gold:  #C9A34D;   // bronz-altın destek vurgusu
+
+// ─── Yüzeyler (dark translucent glass) ───────────────────────────
+$panel-bg:        rgba(15, 15, 15, 0.78);   // island / panel gövdesi
+$panel-secondary: rgba(42, 42, 42, 0.72);   // ikincil yüzey
+$panel-elevated:  rgba(20, 20, 20, 0.92);   // popup/panel iç yüzey (daha opak)
+$surface-hover:   rgba(183, 28, 28, 0.14);  // hafif kızıl hover dolgu
+$input-bg:        rgba(10, 10, 10, 0.85);
+
+// ─── Border'lar ───────────────────────────────────────────────────
+$border-crimson:  rgba(183, 28, 28, 0.35);  // ince kızıl çerçeve
+$border-subtle:   rgba(246, 237, 226, 0.08); // çok hafif krem ayraç
+$border-bronze:   rgba(201, 163, 77, 0.30);
+
+// ─── Metin ────────────────────────────────────────────────────────
+$text-primary:   #F6EDE2;
+$text-secondary: #D9CFC3;
+$text-muted:     #9E9388;
+$text-on-crimson: #FBF3EA;
+
+// ─── Tipografi ────────────────────────────────────────────────────
+// UI = Inter. İkon/mono = JetBrains Mono Nerd Font. Nerd glif fallback'i
+// (Inter glif içermez) için stack'e Nerd Font ekli; MesloLGL geçici fallback.
+$font-ui:   "Inter", "JetBrainsMono Nerd Font", "MesloLGL Nerd Font", "Noto Sans", sans-serif;
+$font-mono: "JetBrainsMono Nerd Font", "MesloLGL Nerd Font", monospace;
+$font-icon: "JetBrainsMono Nerd Font", "MesloLGL Nerd Font", monospace;
+
+// Tutarlı tip ölçeği — bütün bar bu birkaç boyuttan beslenir.
+$fs-base:  13px;   // island metni (clock, network, volume, ws no)
+$fs-val:   13px;   // vurgulu değer (stat value)
+$fs-label: 10px;   // küçük etiket (stat tag)
+$fs-icon:  15px;   // ikonlar
+$fs-title: 13px;   // media başlık
+$fs-sub:   11px;   // media sanatçı / ikincil
+
+// ─── Şekil dili (radius) ──────────────────────────────────────────
+$radius-island: 14px;   // top bar island (manifesto 14–18)
+$radius-panel:  18px;   // overlay panel (manifesto 16–20)
+$radius-btn:    10px;   // küçük buton (manifesto 10–14)
+$radius-pill:   9px;    // workspace pill vb.
+
+// ─── Boşluk / aralık + sabit island yüksekliği ────────────────────
+$island-h:      34px;   // ★ TÜM island'lar bu yükseklikte → bar SABİT, zıplamaz
+$island-gap:    5px;    // island'lar arası boşluk (floating his)
+$island-pad-x:  12px;
+$bar-mt:        5px;    // bar üst boşluğu (floating)
+$bar-mb:        9px;    // bar alt boşluğu (orijinal); gölge bu paya SIĞACAK kadar küçük
+$panel-pad:     16px;
+
+// ─── Gölge ────────────────────────────────────────────────────────
+$shadow-island: 0 4px 16px rgba(0, 0, 0, 0.40);
+$shadow-panel:  0 8px 30px rgba(0, 0, 0, 0.52);
+
+// ─── Geçiş ────────────────────────────────────────────────────────
+$transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);

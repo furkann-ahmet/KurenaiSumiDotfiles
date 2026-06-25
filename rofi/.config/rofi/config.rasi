@@ -1,0 +1,73 @@
+/* Rofi teması — renkler matugen'den (colors.rasi), düzen elle */
+@import "colors.rasi"
+
+configuration {
+    modes: "drun,run,window";
+    show-icons: true;
+    icon-theme: "Papirus";
+    drun-display-format: "{name}";
+}
+
+window {
+    width: 620px;
+    border: 2px;
+    border-color: @line;
+    border-radius: 14px;
+    background-color: @bg;
+}
+
+mainbox {
+    padding: 14px;
+    spacing: 10px;
+}
+
+inputbar {
+    padding: 10px 14px;
+    spacing: 10px;
+    border-radius: 10px;
+    background-color: @bg-alt;
+    text-color: @fg;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @accent-br;
+}
+
+entry {
+    placeholder: "Ara...";
+    placeholder-color: @fg-dim;
+    text-color: @fg;
+}
+
+listview {
+    columns: 1;
+    lines: 8;
+    spacing: 4px;
+    scrollbar: false;
+    background-color: transparent;
+}
+
+element {
+    padding: 9px 12px;
+    spacing: 12px;
+    border-radius: 10px;
+    background-color: transparent;
+    text-color: @fg;
+}
+
+element selected {
+    background-color: @bg-sel;
+    text-color: #ffffff;
+}
+
+element-icon {
+    size: 26px;
+    background-color: transparent;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+    vertical-align: 0.5;
+}

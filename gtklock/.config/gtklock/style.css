@@ -1,0 +1,149 @@
+/* ════════════════════════════════════════════════════════════
+   KURENAI SUMI — gtklock teması  v2  (GTK3 CSS)
+   Yüzen mürekkep paneli (kakemono hissi) · ince bronz hairline · büyük
+   ışıl-ince Inter saat · crimson underline şifre · hayalet power ikonları.
+   Arka plan -b ile (config.ini). Widget isimleri gtklock v4.0.0 + modüller.
+   ════════════════════════════════════════════════════════════ */
+
+@define-color cream       #F6EDE2;
+@define-color cream_dim   rgba(220, 211, 200, 0.72);
+@define-color ink         #0F0F0F;
+@define-color crimson     #B71C1C;
+@define-color crimson_brt #D24343;
+@define-color bronze      #C9A34D;
+@define-color bronze_dim  rgba(201, 163, 77, 0.55);
+
+/* tüm ekrana hafif mürekkep scrim → panel öne çıksın (bg -b ile basılı) */
+window {
+    background-color: rgba(9, 8, 7, 0.42);
+}
+
+/* ─── yüzen mürekkep paneli (tüm formu sarar) ─── */
+#window-box {
+    background-color: rgba(13, 12, 11, 0.92);
+    border: 1px solid rgba(201, 163, 77, 0.18);   /* ince bronz hairline */
+    border-radius: 28px;
+    padding: 54px 68px 44px 68px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.66),
+                0 0 0 1px rgba(0, 0, 0, 0.35);
+}
+
+/* ─── avatar (userinfo) — ince bronz halka, yumuşak ─── */
+#user-box  { margin-bottom: 22px; }
+/* halka artık GÖRSELE gömülü (mükemmel daire) → CSS box-shadow YOK
+   (eski elips/"göz" sorunu CSS halkasının kare-olmayan widget'ı takip
+   etmesindendi). Sadece default symbolic fallback için renk bırakıyoruz. */
+#user-image {
+    color: @bronze;
+}
+#user-name {
+    color: @bronze_dim;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    margin-top: 14px;
+}
+
+/* ─── büyük, ışıl-ince saat (hero) ─── */
+#clock-label {
+    color: @cream;
+    font-family: "Inter Display", "Inter", sans-serif;
+    font-size: 92px;
+    font-weight: 300;
+    letter-spacing: -2px;
+    margin: 0;
+}
+
+/* ─── tarih ─── */
+#date-label {
+    color: @cream_dim;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    margin-top: 6px;
+    margin-bottom: 34px;
+}
+
+/* ─── form bölgesi: saat zonundan ince crimson hairline ile ayrılır ─── */
+#body-grid { margin-top: 4px; }
+
+#input-label {
+    color: @cream_dim;
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+}
+
+/* underline tarzı şifre alanı — kutu yok, altında crimson çizgi */
+#input-field {
+    font-family: "Inter", sans-serif;
+    font-size: 17px;
+    color: @cream;
+    caret-color: @bronze;
+    background-image: none;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(183, 28, 28, 0.65);
+    border-radius: 0;
+    padding: 8px 6px;
+    min-width: 280px;
+    box-shadow: none;
+}
+#input-field:focus {
+    border-bottom-color: @crimson_brt;
+    box-shadow: inset 0 -1px 0 0 rgba(210, 67, 67, 0.4);
+}
+#input-field selection { background-color: @crimson; color: @cream; }
+#input-field image      { color: @bronze; }       /* caps-lock vb. */
+
+/* ─── uyarı / hata ─── */
+#warning-label, #error-label {
+    color: @crimson_brt;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    margin-top: 12px;
+}
+
+/* ─── kilit-aç butonu — sade hayalet (Enter da çalışır) ─── */
+#unlock-button {
+    margin-top: 24px;
+    background-image: none;
+    background-color: transparent;
+    color: @bronze;
+    border: 1px solid @bronze_dim;
+    border-radius: 11px;
+    padding: 9px 30px;
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    box-shadow: none;
+}
+#unlock-button:hover {
+    background-color: @crimson;
+    color: @cream;
+    border-color: @crimson;
+}
+#unlock-button:active { background-color: #9a1414; }
+
+/* ─── power ikonları (alt sıra) — hayalet, hover'da crimson ─── */
+#powerbar-box { margin-top: 36px; }
+#powerbar-box button {
+    background-image: none;
+    background-color: transparent;
+    color: rgba(220, 211, 200, 0.55);
+    border: none;
+    border-radius: 12px;
+    margin: 0 10px;
+    padding: 10px;
+    box-shadow: none;
+}
+#powerbar-box button:hover {
+    background-color: rgba(183, 28, 28, 0.18);
+    color: @crimson_brt;
+}
+#powerbar-box button:active { color: @crimson; }

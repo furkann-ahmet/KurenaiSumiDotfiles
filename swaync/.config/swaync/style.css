@@ -1,0 +1,137 @@
+/* ════════════════════════════════════════════════════════════
+   KURENAI SUMI — swaync bildirim merkezi
+   ink black · rice paper metin · crimson aksan · bronz detay
+   ════════════════════════════════════════════════════════════ */
+* {
+    font-family: "Inter", "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+    font-size: 14px;
+}
+
+.control-center {
+    background: #14110f;
+    border: 1px solid rgba(183, 28, 28, 0.35);
+    border-radius: 18px;
+    color: #F6EDE2;
+    padding: 14px;
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55);
+}
+
+/* başlık satırı */
+.widget-title {
+    color: #F6EDE2;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 6px 6px 12px 6px;
+}
+.widget-title > button {
+    background: rgba(246, 237, 226, 0.05);
+    color: #D9CFC3;
+    border: 1px solid rgba(246, 237, 226, 0.08);
+    border-radius: 10px;
+    padding: 4px 12px;
+}
+.widget-title > button:hover {
+    background: rgba(183, 28, 28, 0.18);
+    color: #F6EDE2;
+    border-color: rgba(183, 28, 28, 0.35);
+}
+
+/* bildirim kartları */
+/* Kapsayıcıları düzleştir: tek görünür kart = .notification (iç içe kutu yok) */
+.notification-row,
+.notification-row .notification-background,
+.notification-group {
+    background: transparent;
+    box-shadow: none;
+}
+.notification-row .notification-background .notification {
+    background: #221D1B;                          /* OPAK kart yüzeyi (artık şeffaf değil) */
+    border: 1px solid rgba(201, 163, 77, 0.18);
+    border-radius: 12px;
+    margin: 6px 4px;
+    padding: 4px;
+}
+.notification-row .notification-background .notification:hover {
+    background: #2B2421;
+    border-color: rgba(183, 28, 28, 0.45);
+}
+/* sarmalayıcılar kart rengini göstersin — kendi arka planları olmasın */
+.notification-row .notification-background .notification .notification-default-action,
+.notification-row .notification-background .notification .notification-content {
+    background: transparent;
+}
+/* gruplanmış bildirimler (aynı uygulamadan çoklu — Slack gibi) */
+.notification-group-headers .notification-group-header,
+.notification-group .notification-group-icon { color: #D9CFC3; }
+.notification-group.collapsed .notification-row:not(:last-child) .notification {
+    background: #1B1715;                          /* arkadaki yığın kartları biraz daha koyu */
+}
+.notification-row .notification-background .notification .notification-content {
+    padding: 8px;
+}
+.summary { color: #F6EDE2; font-weight: bold; }
+.body { color: #D9CFC3; }
+.time { color: #9E9388; }
+
+.close-button {
+    background: #B71C1C;
+    color: #F6EDE2;
+    border-radius: 999px;
+    margin: 6px;
+    padding: 2px 6px;
+}
+.close-button:hover { background: #CF3A3A; }
+
+.notification-action {
+    background: rgba(246, 237, 226, 0.05);
+    color: #D9CFC3;
+    border: 1px solid rgba(246, 237, 226, 0.08);
+    border-radius: 9px;
+}
+.notification-action:hover {
+    background: rgba(183, 28, 28, 0.18);
+    color: #F6EDE2;
+    border-color: rgba(183, 28, 28, 0.35);
+}
+
+/* boş durum */
+.widget-label > label { color: #9E9388; }
+
+/* DND / kontrol düğmeleri (varsa) */
+.widget-dnd > switch {
+    background: #2A2A2A;
+    border-radius: 14px;
+}
+.widget-dnd > switch:checked { background: #B71C1C; }
+.widget-dnd > switch slider { background: #F6EDE2; border-radius: 50%; }
+
+/* MPRIS — albüm kapağı + kontroller */
+.widget-mpris {
+    background: #221D1B;
+    border: 1px solid rgba(201, 163, 77, 0.22);
+    border-radius: 14px;
+    margin: 6px 4px 12px 4px;
+    padding: 10px;
+}
+.widget-mpris-player {
+    padding: 6px;
+    color: #F6EDE2;
+}
+.widget-mpris-title {
+    color: #F6EDE2;
+    font-weight: bold;
+    font-size: 15px;
+}
+.widget-mpris-subtitle {
+    color: #9E9388;
+}
+.widget-mpris button {
+    color: #D9CFC3;
+    background: transparent;
+    border-radius: 999px;
+    padding: 4px;
+}
+.widget-mpris button:hover {
+    background: #B71C1C;
+    color: #F6EDE2;
+}

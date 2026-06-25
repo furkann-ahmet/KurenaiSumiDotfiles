@@ -1,0 +1,35 @@
+/* SwayOSD — ses/parlaklık popup. Açık greige (uygulamalarla aynı). */
+window {
+    background-color: #e8d6d3;
+    border: 1px solid #d8c2be;
+    border-radius: 16px;
+}
+
+#container {
+    margin: 16px;
+}
+
+image, label {
+    color: #231918;
+}
+
+progressbar {
+    min-height: 8px;
+    border-radius: 99px;
+    background-color: transparent;
+    border: none;
+}
+
+trough {
+    min-height: 8px;
+    border-radius: 99px;
+    background-color: #d8c2be;
+    border: none;
+}
+
+progress {
+    min-height: 8px;
+    border-radius: 99px;
+    background-color: #A84538;
+    border: none;
+}

@@ -1,0 +1,916 @@
+// ════════════════════════════════════════════════════════════════
+//  KURENAI SUMI — Ana stil (AGS girişi buraya bakar)
+//  Tüm renk/şekil değerleri _tokens.scss'ten gelir.
+// ════════════════════════════════════════════════════════════════
+@use "tokens" as *;
+
+// ─── Ortak island yüzeyi (DRY) ────────────────────────────────────
+//  Floating island capsule: dark translucent glass + ince crimson
+//  border + soft shadow + rounded. TÜM modüller AYNI yükseklikte
+//  ($island-h) → bar sabit kalır, hiçbir şey ezilmez/zıplamaz.
+%island {
+  background-image: linear-gradient(
+    180deg,
+    rgba(33, 33, 33, 0.85) 0%,
+    rgba(17, 17, 17, 0.88) 100%
+  );
+  border: 1px solid $border-crimson;
+  border-top-color: rgba(201, 163, 77, 0.20); // bronz üst highlight (bevel)
+  border-radius: $radius-island;
+  // Gölge $bar-mb (9px) payına TAM SIĞAR (extent ≈ 8px) → layer kesmez,
+  // gölge kutunun içinde tamamen söner = sert kenar imkânsız.
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(246, 237, 226, 0.05);
+  color: $text-primary;
+  margin: $bar-mt $island-gap $bar-mb;   // 5 / 5 / 9 (alt = gölge payı)
+  padding: 0 $island-pad-x;
+  min-height: $island-h;                 // ★ 34px — tüm island'larda sabit
+  transition: $transition;
+}
+
+// ════════════════════════════════════════════════════════════════
+//  MASAÜSTÜ SÜSLERİ (cava + samuray — BOTTOM layer)
+// ════════════════════════════════════════════════════════════════
+window.Desktop { background: transparent; }
+
+.cava-wrap { margin: 0 0 10px 0; }
+.cava-bar {
+  min-width: 6px;
+  margin: 0 2px;
+  border-radius: 3px 3px 0 0;
+  // alt crimson → üst bronz: Kurenai Sumi vurgu gradyanı
+  background-image: linear-gradient(
+    0deg,
+    $crimson 0%,
+    $crimson-soft 55%,
+    $bronze-gold 100%
+  );
+}
+
+// ════════════════════════════════════════════════════════════════
+//  TOP BAR
+// ════════════════════════════════════════════════════════════════
+window.Bar {
+  background: transparent;
+  font-family: $font-ui;
+  font-size: $fs-base;
+}
+
+.icon { font-family: $font-icon; font-size: $fs-icon; }
+.pill { @extend %island; }
+
+// ─── Workspaces ───────────────────────────────────────────────────
+.workspaces {
+  @extend %island;
+  margin-left: $island-gap + 4px;
+  padding: 0 5px;
+
+  button {
+    color: $text-muted;
+    background: transparent;
+    border: none;
+    border-radius: $radius-pill;
+    padding: 0 10px;
+    margin: 5px 2px;          // dikey 5 → 34 içinde ~24px buton, nefes alır
+    min-width: 18px;
+    font-weight: bold;
+    font-size: $fs-base;
+    transition: $transition;
+
+    &:hover { background-color: $surface-hover; color: $text-primary; }
+
+    &.active {
+      color: $text-on-crimson;
+      background-image: linear-gradient(180deg, #D32F2F 0%, $crimson 100%);
+      box-shadow: 0 0 0 1px rgba(201, 163, 77, 0.28);
+    }
+    &.active:hover { background-image: linear-gradient(180deg, $crimson-soft 0%, #C62828 100%); }
+  }
+}
+
+// ─── Launcher island (紅墨 branding) ──────────────────────────────
+.launcher {
+  @extend %island;
+  padding: 0 14px;
+  &:hover .launcher-logo { color: $crimson-soft; }
+}
+.launcher-logo {
+  font-family: "Noto Sans CJK JP", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  color: $crimson;
+  letter-spacing: 2px;
+}
+
+// ─── Active Window island ─────────────────────────────────────────
+.activewin {
+  @extend %island;
+  color: $text-secondary;
+  font-size: $fs-base;           // diğer island'larla BİREBİR aynı
+
+  .chev { color: $bronze-gold; font-size: 10px; margin-right: 8px; }
+}
+
+// ─── System stats — tek satır: ikon + değer (temiz, okunur) ───────
+.stats {
+  @extend %island;
+  font-family: $font-mono;
+  padding: 0 13px;
+
+  .s-group { margin-right: 15px; }          // gruplar arası nefes
+  .s-ic    { color: $bronze-gold; font-size: 13px; margin-right: 6px; }
+  .s-ic.hot { color: $crimson-soft; }
+  .s-v     { color: $text-primary; font-size: $fs-val; font-weight: bold; }
+  .s-v.hot { color: $crimson-soft; }
+}
+
+// ─── Media controller (kapak + başlık/sanatçı + kontroller) ───────
+.media {
+  @extend %island;
+  padding: 0 9px 0 7px;
+
+  // kapak+başlık tıklama alanı — şeffaf, hover'da kırmızı vurgu
+  .media-open {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    min-height: 0;
+
+    &:hover .title { color: $crimson-soft; }
+    &:hover .art { border-color: $border-crimson; }
+  }
+
+  .art {
+    border-radius: 7px;
+    border: 1px solid rgba(201, 163, 77, 0.30);
+    background-color: $sumi-gray;
+    background-size: cover;
+    background-position: center;
+    margin-right: 10px;
+    color: $bronze-gold;
+    font-size: 15px;
+    min-width: 28px;
+    min-height: 28px;
+  }
+  .meta { margin-right: 12px; }
+  .title  { color: $text-primary; font-weight: bold; font-size: $fs-title; }
+  .artist { color: $text-muted;   font-size: $fs-sub; }
+
+  // kontrol butonları — ayrı bordürlü kare butonlar
+  .controls button {
+    background-color: rgba(246, 237, 226, 0.05);
+    border: 1px solid $border-subtle;
+    border-radius: 8px;
+    color: $text-secondary;
+    padding: 3px 7px;
+    margin: 0 2px;
+    min-height: 0;
+    font-size: 13px;
+    transition: $transition;
+
+    &:hover { color: $crimson-soft; border-color: $border-crimson; }
+  }
+  .controls .pp {
+    background-color: rgba(183, 28, 28, 0.22);
+    border-color: $border-crimson;
+    color: $crimson-soft;
+    font-size: 14px;
+  }
+  .controls .pp:hover { background-color: rgba(183, 28, 28, 0.34); }
+}
+
+// ─── Clock ────────────────────────────────────────────────────────
+.clock { font-weight: bold; letter-spacing: 0.3px; font-size: $fs-base; }
+
+// ─── Sağ modüller (network / volume / notif) ──────────────────────
+.right-mod {
+  @extend %island;
+  font-size: $fs-base;
+  &:hover { border-top-color: $border-bronze; }
+}
+
+// ─── App grid launcher (Başlat — bar EN SOL) ─────────────────────
+.appgrid-btn {
+  @extend %island;
+  margin-left: $island-gap + 4px;
+  padding: 0 13px;
+  &:hover .appgrid-ic { color: $crimson-soft; }
+}
+.appgrid-ic {
+  font-family: $font-icon;
+  font-size: 17px;
+  color: $crimson;
+  transition: $transition;
+}
+
+// ─── Power ────────────────────────────────────────────────────────
+.power {
+  @extend %island;
+  // crimson gradient — %island'ın koyu gradient'ini EZER (yoksa kararıyordu)
+  background-image: linear-gradient(180deg, #D32F2F 0%, $crimson 100%);
+  border-color: rgba(201, 163, 77, 0.45);
+  border-top-color: rgba(246, 237, 226, 0.30);
+  color: $text-on-crimson;
+  margin-right: $island-gap + 4px;
+  font-size: 15px;
+
+  &:hover {
+    background-image: linear-gradient(180deg, $crimson-soft 0%, #C62828 100%);
+  }
+}
+
+// ─── System tray ──────────────────────────────────────────────────
+.tray {
+  @extend %island;
+  padding: 0 8px;
+
+  button {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0 6px;
+    margin: 0;
+    transition: $transition;
+
+    &:hover { background-color: $surface-hover; border-radius: 7px; }
+  }
+}
+
+// ─── Minimized apps (taskbar) ─────────────────────────────────────
+.minimized {
+  @extend %island;
+  padding: 0 6px;
+
+  .min-item {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0 7px;
+    margin: 0 1px;
+    border-radius: 7px;
+    color: $text-secondary;
+    transition: $transition;
+
+    &:hover { background-color: $surface-hover; color: $crimson-soft; }
+  }
+  .min-fallback { font-family: $font-icon; font-size: $fs-icon; }
+}
+
+// ════════════════════════════════════════════════════════════════
+//  POPUP'LAR (ses / ağ — bar'a yapışık glass kartlar)
+// ════════════════════════════════════════════════════════════════
+window.PopupLayer { background: transparent; }
+
+// premium glass kart — bar island'larıyla aynı dil (gradient + bevel + bronz üst)
+// NOT: Bu layer-shell window'da alpha'lı (rgba/gradient) background ÇOK şeffaf
+// render oluyor — sadece tam opak hex doğru çalışıyor. Popup busy pencereler
+// üstünde açıldığı için opak; translucent glass/blur Faz 3'te ele alınacak.
+.popup-card {
+  background-color: #16120f;
+  border: 1px solid $border-crimson;
+  border-top-color: rgba(201, 163, 77, 0.25);
+  border-radius: $radius-panel;
+  padding: 15px 17px;
+  color: $text-primary;
+  font-family: $font-ui;
+  font-size: 13px;
+  min-width: 300px;
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(246, 237, 226, 0.06);
+}
+
+// başlık satırı + altında ince ayraç çizgisi
+.popup-head {
+  margin-bottom: 12px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid $border-subtle;
+}
+.popup-ic    { color: $crimson-soft; font-family: $font-icon; font-size: 16px; margin-right: 9px; }
+.popup-title { font-weight: bold; font-size: 14px; color: $text-primary; letter-spacing: 0.2px; }
+.popup-val   { color: $bronze-gold; font-weight: bold; font-family: $font-mono; }
+.popup-sub   { color: $text-muted; font-size: 11px; margin-top: 8px; }
+
+.popup-mute {
+  background: transparent;
+  border: none;
+  color: $text-secondary;
+  padding: 0 13px 0 2px;
+  min-height: 0;
+  font-size: 18px;
+  transition: $transition;
+  &:hover { color: $crimson-soft; }
+}
+
+// slider (Astal.Slider = Gtk.Scale)
+.popup-card scale {
+  margin: 4px 0;
+  trough {
+    background-color: rgba(246, 237, 226, 0.10);
+    border: none;
+    border-radius: 6px;
+    min-height: 6px;
+    highlight {
+      background-image: linear-gradient(90deg, $crimson 0%, $crimson-soft 100%);
+      border-radius: 6px;
+    }
+  }
+  slider {
+    background-color: $rice-paper;
+    border: 1px solid $border-bronze;
+    border-radius: 50%;
+    min-width: 15px;
+    min-height: 15px;
+    margin: -6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  }
+}
+
+// ağ / cihaz listesi
+.popup-list { margin-top: 6px; }
+.ap-row {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 7px 10px;
+  margin: 1px 0;
+  color: $text-primary;
+  transition: $transition;
+  &:hover { background-color: $surface-hover; }
+  &.active {
+    background-color: rgba(183, 28, 28, 0.16);
+    border-color: $border-crimson;
+    color: $text-on-crimson;
+    font-weight: bold;
+  }
+}
+.ap-check { color: $crimson-soft; }
+.ap-lock  { color: $text-muted; font-size: 12px; }
+
+// alt başlık (örn. "VPN") + VPN satırları
+.popup-subhead {
+  color: $bronze-gold;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  margin: 12px 2px 4px;
+}
+.vpn-sec  { margin-bottom: 2px; }
+.vpn-ic   { font-family: $font-icon; font-size: 15px; color: $crimson-soft; }
+.vpn-state { color: $text-muted; font-size: 11px; font-weight: bold; }
+.ap-row.active .vpn-ic,
+.ap-row.active .vpn-state { color: $text-on-crimson; }
+
+.popup-action {
+  background-color: rgba(246, 237, 226, 0.04);
+  border: 1px solid $border-crimson;
+  border-radius: 10px;
+  padding: 7px 12px;
+  margin-top: 12px;
+  color: $text-secondary;
+  transition: $transition;
+  &:hover { background-color: $surface-hover; color: $text-primary; border-color: $border-bronze; }
+}
+
+.popup-devtoggle {
+  background: transparent;
+  border: none;
+  padding: 9px 2px 2px;
+  margin: 0;
+  color: $text-muted;
+  &:hover { color: $text-primary; }
+}
+
+// wifi şifre giriş
+.auth-row   { margin-top: 12px; }
+.auth-input { margin-top: 6px; }
+.auth-entry {
+  background-color: $input-bg;
+  border: 1px solid $border-crimson;
+  border-radius: 10px;
+  padding: 7px 10px;
+  margin-right: 6px;
+  color: $text-primary;
+  &:focus { border-color: $crimson; }
+}
+.auth-row .popup-action { margin-top: 0; margin-left: 4px; }
+.auth-err { color: $crimson-soft; font-size: 11px; margin-top: 6px; }
+
+// switch (wifi aç/kapa)
+switch {
+  background-color: $sumi-gray;
+  border: 1px solid $border-subtle;
+  border-radius: 14px;
+  min-width: 40px;
+  min-height: 20px;
+  transition: $transition;
+  &:checked {
+    background-color: $crimson;
+    border-color: rgba(201, 163, 77, 0.40);
+  }
+  slider {
+    background-color: $rice-paper;
+    border-radius: 50%;
+    min-width: 16px;
+    min-height: 16px;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
+//  PANELLER (Dashboard, Info Rail, ...) — overlay kartlar
+//  NOT: en dış kart SOLID hex olmalı (GTK3 layer alpha quirk).
+//  İç öğeler opak kart üstünde olduğu için alpha (rgba) kullanabilir.
+// ════════════════════════════════════════════════════════════════
+window.Panel { background: transparent; }
+
+.dash {
+  background-color: #16120f;
+  border: 1px solid $border-crimson;
+  border-top-color: rgba(201, 163, 77, 0.25);
+  border-radius: $radius-panel;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(246, 237, 226, 0.06);
+  padding: 18px;
+  min-width: 326px;
+  color: $text-primary;
+  font-family: $font-ui;
+}
+
+// saat + tarih
+.dash-head { margin-bottom: 14px; }
+.dash-clock {
+  font-size: 42px;
+  font-weight: bold;
+  color: $text-primary;
+}
+.dash-date {
+  font-size: 13px;
+  color: $bronze-gold;
+  margin-top: 2px;
+  letter-spacing: 0.3px;
+}
+
+// ortak kart yüzeyi (takvim + sistem AYNI genişlik & aralarında boşluk)
+.dash-cal-wrap, .dash-section {
+  background-color: rgba(246, 237, 226, 0.03);
+  border: 1px solid $border-subtle;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+// takvim (Gtk.Calendar) — kart içinde şeffaf, border yok
+.dash-cal {
+  background-color: transparent;
+  border: none;
+  color: $text-secondary;
+}
+.dash-cal:selected {
+  background-color: $crimson;
+  color: $text-on-crimson;
+  border-radius: 6px;
+}
+.dash-cal.header { color: $text-primary; font-weight: bold; }
+.dash-cal.highlight { color: $bronze-gold; }
+.dash-sec-head { margin-bottom: 10px; }
+.dash-sec-title {
+  color: $bronze-gold;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1.4px;
+}
+.dash-up { color: $text-muted; font-size: 11px; font-family: $font-mono; }
+
+.dash-stat { margin-bottom: 9px; }
+.dash-stat-top, .dash-temp { }
+.dash-stat-ic  { color: $bronze-gold; font-family: $font-icon; font-size: 13px; margin-right: 8px; }
+.dash-stat-lbl { color: $text-secondary; font-size: 12px; }
+.dash-stat-val { color: $text-primary; font-size: 12px; font-weight: bold; font-family: $font-mono; }
+.dash-temp { margin-top: 2px; }
+.dash-stat-sep { color: $bronze-gold; font-family: $font-icon; font-size: 12px; margin: 0 6px 0 12px; }
+
+// kullanım çubuğu — manuel track + fill (widthRequest oranla ayarlanır)
+.dash-bar {
+  background-color: rgba(246, 237, 226, 0.10);
+  border-radius: 4px;
+  min-height: 6px;
+  margin-top: 6px;
+}
+.dash-bar-fill {
+  background-image: linear-gradient(90deg, $crimson 0%, $crimson-soft 100%);
+  border-radius: 4px;
+  min-height: 6px;
+}
+// ≥%90 dolu disk → daha parlak/uyarı dolgu (tema kırmızısından ayrışsın).
+.dash-bar-fill.hot {
+  background-image: linear-gradient(90deg, #E53935 0%, #FF7043 100%);
+}
+
+// hava durumu
+.dash-wx-now { margin-bottom: 4px; }
+.dash-wx-now-ic   { color: $bronze-gold; font-family: $font-icon; font-size: 38px; margin-right: 14px; }
+.dash-wx-now-temp { color: $text-primary; font-size: 26px; font-weight: bold; }
+.dash-wx-now-desc { color: $text-secondary; font-size: 11px; }
+.dash-wx-meta label { color: $text-muted; font-family: $font-mono; font-size: 11px; }
+.dash-wx-sun {
+  color: $bronze-gold; font-family: $font-mono; font-size: 11px;
+  padding: 4px 0; margin-bottom: 2px;
+  border-top: 1px solid $border-subtle;
+  border-bottom: 1px solid $border-subtle;
+}
+.dash-wx-day { padding: 3px 0; }
+.dash-wx-day-name { color: $text-primary; font-weight: bold; font-size: 12px; min-width: 44px; }
+.dash-wx-day-ic   { color: $bronze-gold; font-family: $font-icon; font-size: 15px; margin: 0 10px; }
+.dash-wx-day-desc { color: $text-muted; font-size: 11px; }
+.dash-wx-day-max  { color: $text-primary; font-family: $font-mono; font-size: 12px; font-weight: bold; min-width: 36px; }
+.dash-wx-day-min  { color: $text-muted; font-family: $font-mono; font-size: 12px; min-width: 36px; }
+
+// hızlı kontroller
+.dash-quick { margin-top: 2px; }
+.dash-quick-btn {
+  background-color: rgba(246, 237, 226, 0.04);
+  border: 1px solid $border-subtle;
+  border-radius: 12px;
+  padding: 10px 4px;
+  margin: 0 3px;
+  color: $text-secondary;
+  transition: $transition;
+}
+.dash-quick-btn:hover {
+  background-color: rgba(183, 28, 28, 0.16);
+  border-color: $border-crimson;
+  color: $text-primary;
+}
+// Performans modu aktif → kırmızı yanar (PerfToggle)
+.dash-quick-btn.active {
+  background-image: linear-gradient(180deg, #D32F2F 0%, $crimson 100%);
+  border-color: $border-crimson;
+  color: $text-on-crimson;
+}
+.dash-quick-btn.active:hover {
+  background-image: linear-gradient(180deg, $crimson-soft 0%, #C62828 100%);
+}
+.dash-quick-ic  { font-family: $font-icon; font-size: 19px; margin-bottom: 4px; }
+.dash-quick-lbl { font-size: 10px; }
+
+// slider (info rail) — popup ile aynı dil
+.ir scale {
+  margin: 2px 0;
+  trough {
+    background-color: rgba(246, 237, 226, 0.10);
+    border: none; border-radius: 6px; min-height: 6px;
+    highlight { background-image: linear-gradient(90deg, $crimson 0%, $crimson-soft 100%); border-radius: 6px; }
+  }
+  slider {
+    background-color: $rice-paper; border: 1px solid $border-bronze;
+    border-radius: 50%; min-width: 15px; min-height: 15px; margin: -6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  }
+}
+
+// ════════════════════════════════════════════════════════════════
+//  INFO RAIL (Super+I)
+// ════════════════════════════════════════════════════════════════
+.ir {
+  background-color: #16120f;
+  border: 1px solid $border-crimson;
+  border-top-color: rgba(201, 163, 77, 0.25);
+  border-radius: $radius-panel;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.58), inset 0 1px 0 rgba(246, 237, 226, 0.06);
+  padding: 16px;
+  min-width: 264px;
+  color: $text-primary;
+  font-family: $font-ui;
+}
+.ir-head { margin-bottom: 14px; }
+.ir-clock { font-size: 34px; font-weight: bold; }
+.ir-date { font-size: 12px; color: $bronze-gold; margin-top: 1px; }
+.ir-section {
+  background-color: rgba(246, 237, 226, 0.03);
+  border: 1px solid $border-subtle;
+  border-radius: 12px;
+  padding: 11px 13px;
+  margin-bottom: 12px;
+}
+.ir-sec-title { color: $bronze-gold; font-size: 10px; font-weight: bold; letter-spacing: 1.4px; margin-bottom: 8px; }
+.ir-stat { margin-bottom: 8px; }
+.ir-ic  { color: $bronze-gold; font-family: $font-icon; font-size: 12px; margin-right: 7px; }
+.ir-lbl { color: $text-secondary; font-size: 11px; }
+.ir-val { color: $text-primary; font-size: 11px; font-weight: bold; font-family: $font-mono; }
+.ir-bar { background-color: rgba(246, 237, 226, 0.10); border-radius: 4px; min-height: 5px; margin-top: 5px; }
+.ir-bar-fill { background-image: linear-gradient(90deg, $crimson 0%, $crimson-soft 100%); border-radius: 4px; min-height: 5px; }
+.ir-temp { margin-top: 2px; }
+.ir-vol .icon { color: $text-secondary; margin-right: 10px; font-size: 15px; }
+.ir-weather-val { color: $text-secondary; font-size: 13px; }
+
+// ════════════════════════════════════════════════════════════════
+//  APP GRID (Bar EN SOL "Başlat" / Super → ekran ortasında ızgara launcher)
+// ════════════════════════════════════════════════════════════════
+.ag {
+  background-color: #16120f;
+  border: 1px solid $border-crimson;
+  border-top-color: rgba(201, 163, 77, 0.25);
+  border-radius: $radius-panel;
+  // Gölge KÜÇÜK (extent ≈ 13px) → küçük margin (16px) içine tamamen sığar,
+  // eventbox kesmez, gölge kutunun içinde söner = sert kenar yok.
+  margin: 16px;
+  box-shadow: 0 3px 11px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(246, 237, 226, 0.06);
+  padding: 16px;
+  color: $text-primary;
+  font-family: $font-ui;
+}
+.ag-search {
+  background-color: rgba(246, 237, 226, 0.05);
+  border: 1px solid $border-crimson;
+  border-radius: 12px;
+  padding: 4px 12px;
+  margin-bottom: 14px;
+}
+.ag-search-ic { color: $crimson-soft; font-family: $font-icon; font-size: 16px; margin-right: 10px; }
+.ag-entry { background: transparent; border: none; color: $text-primary; font-size: 15px; }
+.ag-entry:focus { background: transparent; box-shadow: none; }
+
+.ag-scroll { min-width: 800px; min-height: 510px; }
+.ag-grid { padding: 0; }
+.ag-cell {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  padding: 16px 6px;
+  margin: 4px;
+  transition: $transition;
+}
+.ag-cell:hover { background-color: rgba(183, 28, 28, 0.16); border-color: $border-crimson; }
+// ★ Astal.Icon boyutu CSS font-size ile belirlenir (pixelSize DEĞİL!)
+.ag-cell-ic { font-size: 62px; margin-bottom: 12px; }
+.ag-cell-name { color: $text-secondary; font-size: 13px; }
+.ag-cell:hover .ag-cell-name { color: $text-primary; }
+
+// ════════════════════════════════════════════════════════════════
+//  CLIPBOARD (Super+V)
+// ════════════════════════════════════════════════════════════════
+.clip {
+  background-color: #16120f;
+  border: 1px solid $border-crimson;
+  border-top-color: rgba(201, 163, 77, 0.25);
+  border-radius: $radius-panel;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.60), inset 0 1px 0 rgba(246, 237, 226, 0.06);
+  padding: 14px;
+  min-width: 460px;
+  color: $text-primary;
+  font-family: $font-ui;
+}
+.clip-search {
+  background-color: rgba(246, 237, 226, 0.05);
+  border: 1px solid $border-crimson;
+  border-radius: 12px;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+}
+.clip-search-ic { color: $crimson-soft; font-family: $font-icon; font-size: 16px; margin-right: 10px; }
+.clip-entry { background: transparent; border: none; color: $text-primary; font-size: 14px; }
+.clip-entry:focus { background: transparent; box-shadow: none; }
+.clip-scroll { min-height: 340px; }
+.clip-row {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  padding: 8px 10px;
+  margin: 1px 0;
+  color: $text-secondary;
+  font-family: $font-mono;
+  transition: $transition;
+}
+.clip-row:hover { background-color: rgba(183, 28, 28, 0.16); border-color: $border-crimson; color: $text-primary; }
+.clip-row-text { font-size: 12px; }
+
+// ════════════════════════════════════════════════════════════════
+//  POWER MENU (Bar power island / Ctrl+Alt+Del) — wlogout yerine
+// ════════════════════════════════════════════════════════════════
+// solid near-black backdrop (alpha layer'da açık render olduğu için solid → temiz/dramatik)
+window.panel-power { background-color: #0b0a09; }
+
+.pm { padding: 24px; }
+.pm-kanji {
+  color: #B71C1C;
+  font-family: "Noto Sans CJK JP", sans-serif;
+  font-size: 42px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+.pm-brand {
+  color: #C9A34D;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 36px;
+}
+.pm-item { margin: 0 16px; }
+.pm-circle {
+  background-color: #1e1815;
+  // Standart: sade, hafif border + yumuşak gölge (dikkat çekmez)
+  border: 1px solid rgba(183, 28, 28, 0.28);
+  border-top: 1px solid rgba(201, 163, 77, 0.20);
+  border-radius: 48px;
+  min-width: 96px;
+  min-height: 96px;
+  color: #D9CFC3;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.50);
+  transition: background-color 180ms ease, box-shadow 180ms ease,
+              color 180ms ease, border-color 180ms ease;
+}
+.pm-circle:hover {
+  // Hover: bold crimson border + halka (artık vurgu burada)
+  background-color: #B71C1C;
+  border-color: $crimson;
+  border-top-color: rgba(246, 237, 226, 0.40);
+  color: #F6EDE2;
+  box-shadow: 0 0 0 2px rgba(183, 28, 28, 0.85),
+              0 0 24px rgba(183, 28, 28, 0.45),
+              0 8px 24px rgba(0, 0, 0, 0.50);
+}
+.pm-circle.danger:hover { background-color: #CF3A3A; }
+// Odaklı buton artık tabandan farklı değil — GTK'nın mavi outline'ı kapatılır,
+// görünüm tüm butonlarla aynı (kilit dahil hepsi tek tip).
+.pm-circle:focus { outline: none; }
+.pm-ic { font-family: $font-icon; font-size: 34px; }
+.pm-label {
+  color: #D9CFC3;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+.pm-hint { color: #6b6258; font-size: 11px; margin-top: 32px; }
+
+// ─── Ekran Kaydı paneli (Super+R) ───────────────────────────────
+.rec {
+  background-color: #16120f;
+  border: 1px solid $border-crimson;
+  border-top-color: rgba(201, 163, 77, 0.25);
+  border-radius: $radius-panel;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(246, 237, 226, 0.06);
+  padding: 20px;
+  min-width: 300px;
+  color: $text-primary;
+  font-family: $font-ui;
+}
+.rec-title {
+  color: $text-primary;
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 14px;
+}
+.rec-section {
+  color: $text-muted;
+  font-size: $fs-label;
+  font-weight: bold;
+  margin: 10px 2px 6px;
+}
+.rec-seg { margin-bottom: 2px; }
+.rec-seg-btn {
+  background-color: rgba(246, 237, 226, 0.04);
+  border: 1px solid $border-subtle;
+  border-radius: $radius-btn;
+  padding: 9px 6px;
+  margin: 0 3px;
+  color: $text-secondary;
+  font-size: 12px;
+  transition: $transition;
+
+  &:first-child { margin-left: 0; }
+  &:last-child  { margin-right: 0; }
+  &:hover { background-color: $surface-hover; color: $text-primary; }
+  &.active {
+    color: $text-on-crimson;
+    background-image: linear-gradient(180deg, #D32F2F 0%, $crimson 100%);
+    border-color: $border-crimson;
+  }
+  &:focus { outline: none; }
+}
+.rec-seg-ic { font-family: $font-icon; font-size: 14px; margin-right: 7px; }
+
+.rec-check {
+  background-color: rgba(246, 237, 226, 0.04);
+  border: 1px solid $border-subtle;
+  border-radius: $radius-btn;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  color: $text-secondary;
+  font-size: 12px;
+  transition: $transition;
+
+  &:hover { background-color: $surface-hover; color: $text-primary; }
+  &.on { color: $text-primary; border-color: $border-bronze; }
+  &:focus { outline: none; }
+}
+.rec-check-box {
+  font-family: $font-icon;
+  font-size: 14px;
+  min-width: 18px;
+  color: $bronze-gold;
+}
+.rec-check-ic { font-family: $font-icon; font-size: 14px; margin-right: 9px; }
+
+.rec-start {
+  background-image: linear-gradient(180deg, #D32F2F 0%, $crimson 100%);
+  border: 1px solid $border-crimson;
+  border-radius: $radius-btn;
+  padding: 11px;
+  margin-top: 14px;
+  color: $text-on-crimson;
+  font-size: 13px;
+  font-weight: bold;
+  transition: $transition;
+
+  &:hover { background-image: linear-gradient(180deg, $crimson-soft 0%, #C62828 100%); }
+  &:focus { outline: none; }
+}
+.rec-start-dot { font-family: $font-icon; font-size: 13px; margin-right: 8px; }
+.rec-hint { color: #6b6258; font-size: 11px; margin-top: 14px; }
+
+// ─── Yüzen kayıt göstergesi ──────────────────────────────────────
+.RecInd { background: transparent; }
+.recind-btn {
+  background-color: rgba(15, 15, 15, 0.92);
+  border: 1px solid $border-crimson;
+  border-radius: $radius-island;
+  box-shadow: $shadow-island;
+  padding: 5px 12px;
+  min-height: $island-h;
+  color: $text-primary;
+  font-family: $font-mono;
+  transition: $transition;
+
+  &:hover { background-color: rgba(40, 20, 20, 0.95); }
+  &:focus { outline: none; }
+}
+.recind-dot {
+  color: $crimson-soft;
+  font-family: $font-icon;
+  font-size: 13px;
+  margin-right: 8px;
+}
+.recind-time { font-size: 13px; font-weight: bold; color: $text-primary; }
+.recind-stop {
+  color: $text-muted;
+  font-family: $font-icon;
+  font-size: 13px;
+  margin-left: 10px;
+}
+
+// ─── Exposé / Genel bakış (Super+A) ─────────────────────────────
+.expose {
+  background-color: #16120f;
+  border: 1px solid $border-crimson;
+  border-top-color: rgba(201, 163, 77, 0.25);
+  border-radius: $radius-panel;
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.58),
+    inset 0 1px 0 rgba(246, 237, 226, 0.06);
+  padding: 20px;
+  min-width: 520px;
+  color: $text-primary;
+  font-family: $font-ui;
+}
+.expose-head { margin-bottom: 14px; }
+.expose-title { color: $text-primary; font-size: 16px; font-weight: bold; }
+.expose-hint { color: #6b6258; font-size: 11px; }
+.expose-empty { color: $text-muted; padding: 24px; font-size: 13px; }
+
+.expose-ws { margin-bottom: 14px; }
+.expose-ws-badge {
+  color: $bronze-gold;
+  font-size: $fs-label;
+  font-weight: bold;
+  margin: 0 2px 6px;
+}
+.expose-row { }
+
+.expose-card {
+  background-color: rgba(246, 237, 226, 0.04);
+  border: 1px solid $border-subtle;
+  border-radius: $radius-btn;
+  padding: 12px 10px;
+  margin: 0 6px 0 0;
+  min-width: 96px;
+  color: $text-secondary;
+  transition: $transition;
+
+  &:hover {
+    background-color: $surface-hover;
+    border-color: $border-crimson;
+    color: $text-primary;
+  }
+  &:focus { outline: none; }
+}
+.expose-card-ic {
+  min-height: 40px;
+  margin-bottom: 6px;
+}
+.expose-card-fallback { font-family: $font-icon; font-size: 32px; color: $bronze-gold; }
+.expose-card-title { font-size: 11px; }

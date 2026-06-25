@@ -1,0 +1,54 @@
+# ════════════════════════════════════════════════════════════
+#  KURENAI SUMI — swaylock-effects
+#  Kilidi bir kez çizer (NVIDIA'da pürüzsüz). Branding (紅墨 + KURENAI SUMI)
+#  arka plana gömülü; ortada saat halkası (Kurenai renkleri).
+# ════════════════════════════════════════════════════════════
+
+# Branding'li koyu blur'lu arka plan
+image=$HOME/.config/hypr/lock-bg-swaylock.png
+scaling=fill
+
+# Saat + tarih (halkanın içinde, focal)
+clock
+timestr=%H:%M
+datestr=%A, %d %B
+font=Inter
+font-size=40
+
+# Halka her zaman görünür (saat sürekli görünsün), zarif
+indicator
+indicator-idle-visible
+indicator-radius=140
+indicator-thickness=6
+indicator-caps-lock
+
+# ─── Renkler (RRGGBBAA, # yok) ───
+# halka: idle'da soluk bronz; doğrulama bronz; hata crimson
+ring-color=4a3f2e
+ring-clear-color=c9a34d
+ring-ver-color=c9a34d
+ring-wrong-color=cf3a3a
+inside-color=120f0db3
+inside-clear-color=120f0db3
+inside-ver-color=120f0db3
+inside-wrong-color=120f0db3
+# tuş-basma vurgusu crimson; ayraçlar ŞEFFAF → segment animasyonu yumuşak
+key-hl-color=b71c1c
+bs-hl-color=cf3a3a
+separator-color=00000000
+line-color=00000000
+line-clear-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+# metin (saat/tarih): cream; doğrulama bronz; hata crimson
+text-color=f6ede2
+text-clear-color=c9a34d
+text-ver-color=c9a34d
+text-wrong-color=cf3a3a
+text-caps-lock-color=c9a34d
+layout-bg-color=00000000
+layout-text-color=d9cfc3
+
+# güvenlik/davranış
+ignore-empty-password
+show-failed-attempts

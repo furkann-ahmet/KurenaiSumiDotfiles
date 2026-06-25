@@ -1,0 +1,11 @@
+/* matugen tarafından üretildi — ELLE DÜZENLEME (soft-light nötr) */
+* {
+    bg:        #E8D6D3ED;
+    bg-alt:    #f7e4e1;
+    bg-sel:    #A84538;
+    fg:        #231918;
+    fg-dim:    #534341;
+    accent:    #A84538;
+    accent-br: #CA5746;
+    line:      #d8c2be;
+}

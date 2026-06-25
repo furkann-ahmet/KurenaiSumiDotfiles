@@ -1,0 +1,241 @@
+/* ===== Greige-dark bar (waybar ile aynı kimlik) ===== */
+window.Bar {
+  background: transparent;
+  font-family: "MesloLGL Nerd Font", "Noto Sans", sans-serif;
+  font-size: 14px;
+}
+
+/* genel pill kabı */
+.pill {
+  background-color: #241b18;
+  border: 1px solid #3d2d29;
+  border-radius: 12px;
+  padding: 0 11px;
+  margin: 3px 4px;
+  color: #f0e4df;
+}
+
+/* ---------- workspaces ---------- */
+.workspaces {
+  background-color: #241b18;
+  border: 1px solid #3d2d29;
+  border-radius: 12px;
+  margin: 3px 4px 3px 9px;
+  padding: 1px 4px;
+}
+.workspaces button {
+  color: #b9a39c;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 0 9px;
+  margin: 2px 2px;
+  font-weight: bold;
+  transition: 200ms;
+}
+.workspaces button.active {
+  color: #ffffff;
+  background-color: #A84538;
+}
+.workspaces button:hover {
+  background-color: #3a2b27;
+  color: #f0e4df;
+}
+.workspaces button.active:hover {
+  background-color: #A84538;
+}
+
+/* ---------- media (büyük kapak + dikey başlık/süre + kontroller) ---------- */
+.media {
+  background-color: #241b18;
+  border: 1px solid #3d2d29;
+  border-radius: 12px;
+  margin: 3px 4px;
+  padding: 0 14px 0 9px;
+  color: #f0e4df;
+}
+.media .art {
+  border-radius: 7px;
+  background-color: #392a26;
+  background-size: cover;
+  background-position: center;
+  margin-right: 9px;
+  color: #a98a82;
+  font-size: 16px;
+  min-width: 30px;
+  min-height: 30px;
+}
+.media .meta {
+  margin-right: 14px;
+}
+.media .title {
+  color: #f0e4df;
+  font-weight: bold;
+  font-size: 11px;
+}
+.media .time {
+  color: #b9a39c;
+  font-size: 9px;
+  margin-top: 0;
+}
+.media .controls button {
+  background: transparent;
+  border: none;
+  color: #f0e4df;
+  padding: 0 6px;
+  min-height: 0;
+  font-size: 15px;
+}
+.media .controls button:hover { color: #CA5746; }
+.media .controls .pp {
+  color: #CA5746;
+  font-size: 16px;
+}
+
+/* ---------- clock ---------- */
+.clock { font-weight: bold; }
+
+/* ---------- sağ modüller ---------- */
+.right-mod {
+  background-color: #241b18;
+  border: 1px solid #3d2d29;
+  border-radius: 12px;
+  padding: 0 11px;
+  margin: 3px 4px;
+  color: #f0e4df;
+}
+.right-mod:hover { background-color: #2c211d; }
+.icon { font-size: 15px; }
+
+/* power */
+.power {
+  background-color: #A84538;
+  border: 1px solid #A84538;
+  border-radius: 12px;
+  padding: 0 11px;
+  margin: 3px 9px 3px 4px;
+  color: #ffffff;
+  font-size: 15px;
+}
+.power:hover { background-color: #CA5746; }
+
+/* tray */
+.tray { padding: 0 8px; margin: 3px 4px; }
+.tray button {
+  background: none;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0 5px;
+  margin: 0;
+}
+.tray button:hover {
+  background-color: #3a2b27;
+  border-radius: 8px;
+}
+
+/* ===== Bar'a yapışık popup'lar (ses / ağ) ===== */
+window.PopupLayer { background: transparent; }
+
+.popup-card {
+  background-color: #241b18;
+  border: 1px solid #3d2d29;
+  border-radius: 14px;
+  padding: 14px 16px;
+  color: #f0e4df;
+  font-family: "MesloLGL Nerd Font", "Noto Sans", sans-serif;
+  font-size: 13px;
+  min-width: 290px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45);
+}
+.popup-head { margin-bottom: 10px; }
+.popup-title { font-weight: bold; font-size: 14px; color: #f0e4df; }
+.popup-val { color: #b9a39c; }
+.popup-sub { color: #b9a39c; font-size: 11px; margin-top: 8px; }
+
+/* ses satırı */
+.popup-mute {
+  background: transparent;
+  border: none;
+  color: #f0e4df;
+  padding: 0 12px 0 0;
+  min-height: 0;
+  font-size: 17px;
+}
+.popup-mute:hover { color: #CA5746; }
+
+/* slider (Astal.Slider = Gtk.Scale) */
+.popup-card scale trough {
+  background-color: #392a26;
+  border: none;
+  border-radius: 6px;
+  min-height: 6px;
+}
+.popup-card scale trough highlight {
+  background-color: #A84538;
+  border-radius: 6px;
+}
+.popup-card scale slider {
+  background-color: #f0e4df;
+  border: none;
+  border-radius: 50%;
+  min-width: 14px;
+  min-height: 14px;
+  margin: -6px;
+}
+
+/* ağ listesi */
+.popup-list { margin-top: 4px; }
+.ap-row {
+  background: transparent;
+  border: none;
+  border-radius: 9px;
+  padding: 5px 9px;
+  margin: 1px 0;
+  color: #f0e4df;
+}
+.ap-row:hover { background-color: #3a2b27; }
+.ap-row.active { color: #ffffff; font-weight: bold; }
+.ap-check { color: #CA5746; }
+
+.ap-lock { color: #8a756e; font-size: 12px; }
+
+.popup-action {
+  background-color: #2c211d;
+  border: 1px solid #3d2d29;
+  border-radius: 9px;
+  padding: 6px 10px;
+  margin-top: 10px;
+  color: #f0e4df;
+}
+.popup-action:hover { background-color: #3a2b27; }
+
+/* çıkış cihazı seçici */
+.popup-devtoggle {
+  background: transparent;
+  border: none;
+  padding: 8px 2px 2px 2px;
+  margin: 0;
+  color: #b9a39c;
+}
+.popup-devtoggle:hover { color: #f0e4df; }
+
+/* wifi şifre giriş satırı */
+.auth-row { margin-top: 10px; }
+.auth-input { margin-top: 5px; }
+.auth-entry {
+  background-color: #1b1310;
+  border: 1px solid #3d2d29;
+  border-radius: 9px;
+  padding: 5px 9px;
+  margin-right: 6px;
+  color: #f0e4df;
+}
+.auth-entry:focus { border-color: #A84538; }
+.auth-row .popup-action { margin-top: 0; margin-left: 4px; }
+.auth-err { color: #CA5746; font-size: 11px; margin-top: 5px; }
+
+/* wifi switch */
+switch { background-color: #392a26; border-radius: 14px; }
+switch:checked { background-color: #A84538; }
+switch slider { background-color: #f0e4df; border-radius: 50%; }
