@@ -1,73 +1,45 @@
 # dotfiles
 
-My Hyprland setup on CachyOS (Arch). Theme is a muted greige/"sumi" base with a
-fixed red accent (#A84538), wallpaper-driven via matugen. Comments are mostly in
-Turkish — sorry about that.
+my hyprland setup on cachyos, 3 monitors. theme is a muted greige base with one
+red accent (#A84538) — base colors follow the wallpaper through matugen, the red
+stays fixed. config comments are in turkish, sorry.
 
-![screenshot](screenshots/desktop.png)
+## what's running
 
-## What's in here
+- **wm** — hyprland (+ hypridle, hyprpaper)
+- **bar / panels / power menu / app grid** — ags (astal, ts+jsx)
+- **terminal** kitty · **launcher** rofi · **notifications** swaync
+- **lock** — gtklock, falls back to swaylock then hyprlock (`hypr/lock.sh`)
+- **shell** — fish, fastfetch on greeting
+- **gtk** — adw-gtk3-dark + papirus
 
-| | |
-|---|---|
-| WM | Hyprland (+ hypridle, hyprpaper) |
-| Bar / panels / power menu | AGS (Astal, TypeScript/JSX) |
-| Terminal | kitty |
-| Launcher | rofi |
-| Notifications | swaync |
-| OSD (volume/brightness) | swayosd |
-| Lock | gtklock → swaylock → hyprlock (fallback chain, see `hypr/lock.sh`) |
-| Theming | matugen — `scheme-tonal-spot`, light, accent locked |
-| GTK apps | adw-gtk3-dark + Papirus icons (`gtk-3.0`/`gtk-4.0`) |
-| Shell | fish |
-| Misc | fastfetch |
+## install
 
-## Install
+it's stow, each top folder is one package:
 
-Uses GNU stow. Each top-level folder is one package.
-
-```sh
-sudo pacman -S stow
-git clone <this-repo> ~/dotfiles
-cd ~/dotfiles
-stow */           # everything, or pick: stow hypr ags rofi fish ...
+```
+git clone <repo> ~/dotfiles && cd ~/dotfiles
+stow */          # or pick: stow hypr ags fish rofi
 ```
 
-Stow symlinks each package into place under `~`, so editing a file in the repo
-edits the live config and vice versa.
+stuff to know:
 
-For AGS you'll need `aylurs-gtk-shell` and the Astal libs; the `@girs` types and
-`node_modules` are gitignored and regenerated on first run.
+- ags pulls its `@girs` types and `node_modules` on first run, those are ignored
+- install `adw-gtk3`, `papirus-icon-theme`, `breeze`/`breeze-gtk` or gtk apps
+  look off (gtk-4.0 symlinks into the system Breeze theme)
+- qt apps go through the kde platform theme — i didn't ship that part, so they
+  won't match the palette
+- swaylock/gtklock don't expand env vars, so the bg/style paths in their configs
+  are left as `$HOME/...` — edit them to your home if you use those
+- `hypr/monitors.conf` is my 3-monitor layout, change it for yours
 
-## Theming
+## theming
 
-Drop a wallpaper in `~/Pictures/Wallpapers` and run:
+drop a wallpaper in `~/Pictures/Wallpapers` and run:
 
-```sh
+```
 ~/.config/matugen/retheme.sh path/to/wallpaper.png
 ```
 
-It regenerates colors for hypr, hyprlock and rofi from the image, keeps the red
-accent, and reloads. The default is `samurai.png`. (AGS and swaync use their own
-static stylesheets, not matugen.)
-
-## Dependencies for theming
-
-GTK app theming expects these installed (not bundled): `adw-gtk3`,
-`papirus-icon-theme`, and the Breeze cursors / Breeze GTK theme (`breeze`,
-`breeze-gtk`) — `gtk-4.0/gtk-dark.css` symlinks into `/usr/share/themes/Breeze`.
-
-Qt apps are themed through the KDE platform theme (`QT_QPA_PLATFORMTHEME=kde`,
-widget style Breeze + a `KurenaiSumi` color scheme). That layer lives in KDE
-config outside `~/.config`, so it isn't shipped here — Qt apps just won't match
-the palette out of the box.
-
-## Notes
-
-- Wallpapers in `wallpapers/` are large; swap in your own if you want.
-- swaylock and gtklock don't expand env vars, so their background/style paths in
-  `swaylock/.config/swaylock/config` and `gtklock/.config/gtklock/config.ini`
-  are written as `$HOME/...` placeholders — edit them to your real home if you
-  use those locks. (gtklock is the primary lock.)
-- Monitors are set in `hypr/monitors.conf` for a 3-monitor layout — adjust to
-  yours.
+it rebuilds hypr/hyprlock/rofi colors from the image, keeps the red accent and
+reloads. ags and swaync use their own static stylesheets so they don't follow.
