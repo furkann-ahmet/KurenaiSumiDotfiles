@@ -12,7 +12,8 @@ matugen image "$WALL" -m light -t scheme-tonal-spot --prefer saturation
 
 # Reload'lar
 hyprctl reload >/dev/null 2>&1 || true
-# AGS bar & swaync: kendi statik style.css'leri (matugen döngüsünde değil)
-# rofi: sonraki açılışta · hyprlock: sonraki kilitte
+killall dunst  2>/dev/null || true; sleep 0.3; (dunst  >/dev/null 2>&1 &)
+# AGS bar: kendi style.css'i (matugen döngüsünde değil — ayrıca bağlanabilir)
+# alacritty: live_config_reload açık (anında) · rofi: sonraki açılışta · hyprlock: sonraki kilitte
 
 echo "✅ Tema güncellendi — kaynak: $WALL"

@@ -5,7 +5,7 @@
 # ════════════════════════════════════════════════════════════
 
 # Branding'li koyu blur'lu arka plan
-image=$HOME/.config/hypr/lock-bg-swaylock.png
+image=/home/furkan/.config/hypr/lock-bg-swaylock.png
 scaling=fill
 
 # Saat + tarih (halkanın içinde, focal)

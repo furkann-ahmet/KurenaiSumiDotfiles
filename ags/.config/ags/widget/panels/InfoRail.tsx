@@ -5,7 +5,6 @@
 import { Gtk } from "ags/gtk3"
 import { createBinding, createComputed } from "ags"
 import { createPoll } from "ags/time"
-import GLib from "gi://GLib"
 import Wp from "gi://AstalWp"
 import PanelWindow from "../common/PanelWindow"
 import { cpuPercent, ramUsed, ramFraction, cpuTemp } from "../../lib/sysinfo"
@@ -70,7 +69,7 @@ function InfoRail() {
   const ram = createPoll(ramUsed(), 2000, () => ramUsed())
   const ramF = createPoll(ramFraction(), 2000, () => ramFraction())
   const temp = createPoll(cpuTemp(), 2000, () => cpuTemp())
-  const weather = createPoll("", 600000, `bash ${GLib.get_home_dir()}/.config/ags/scripts/weather.sh`)
+  const weather = createPoll("", 600000, "bash /home/furkan/.config/ags/scripts/weather.sh")
 
   const card = (
     <box class="ir" vertical={true}>

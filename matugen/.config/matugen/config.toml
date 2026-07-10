@@ -9,10 +9,12 @@
 input_path = "~/.config/matugen/templates/hyprland-colors.conf"
 output_path = "~/.config/hypr/colors.conf"
 
-# --- Hyprlock (kilit ekranı) — arka plan current-wallpaper symlink'inden ---
-[templates.hyprlock]
-input_path = "~/.config/matugen/templates/hyprlock.conf"
-output_path = "~/.config/hypr/hyprlock.conf"
+# --- Hyprlock — DEVRE DIŞI ---
+# hyprlock.conf artık SABİT Kurenai Sumi (elle yazıldı, dosya başındaki nota bak).
+# Bu template açıkken her retheme onu eziyordu → kapatıldı.
+# [templates.hyprlock]
+# input_path = "~/.config/matugen/templates/hyprlock.conf"
+# output_path = "~/.config/hypr/hyprlock.conf"
 
 # --- Alacritty (terminal) — DEVRE DIŞI ---
 # Kurenai Sumi sabit paleti kullanıyor (~/.config/alacritty/colors.toml elle yazıldı).
@@ -22,10 +24,9 @@ output_path = "~/.config/hypr/hyprlock.conf"
 # input_path = "~/.config/matugen/templates/alacritty-colors.toml"
 # output_path = "~/.config/alacritty/colors.toml"
 
-# --- Rofi (uygulama menüsü) ---
-[templates.rofi]
-input_path = "~/.config/matugen/templates/rofi-colors.rasi"
-output_path = "~/.config/rofi/colors.rasi"
+# --- Rofi & Dunst: KALDIRILDI (2026-07-10) ---
+# rofi → AGS appgrid, dunst → swaync. Paketler sistemden silindi,
+# template'leri de silindi (git geçmişinde durur).
 
 # --- KDE / GTK temaları: DEVRE DIŞI ---
 # Kurenai Sumi sabit KOYU palet kullanıyor. matugen bunları wallpaper'dan

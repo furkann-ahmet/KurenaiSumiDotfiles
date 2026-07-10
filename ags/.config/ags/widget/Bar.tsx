@@ -424,7 +424,7 @@ function Clock() {
 }
 
 function Weather() {
-  const w = createPoll("", 600000, `bash ${GLib.get_home_dir()}/.config/ags/scripts/weather.sh`)
+  const w = createPoll("", 600000, "bash /home/furkan/.config/ags/scripts/weather.sh")
   return (
     <box class="pill" visible={w((x) => x.trim() !== "")}>
       <label label={w((x) => x.trim())} />
@@ -436,7 +436,7 @@ function Updates() {
   // State tabanlı: açılışta + 30dk'da bir + güncelleme bitince anında yenilenir.
   const [counts, setCounts] = createState({ off: 0, aur: 0, total: 0 })
   const refresh = () =>
-    execAsync(["bash", `${GLib.get_home_dir()}/.config/ags/scripts/updates.sh`])
+    execAsync(["bash", "/home/furkan/.config/ags/scripts/updates.sh"])
       .then((s) => {
         const [o, a] = s.trim().split("|").map((n) => parseInt(n) || 0)
         setCounts({ off: o, aur: a, total: o + a })
