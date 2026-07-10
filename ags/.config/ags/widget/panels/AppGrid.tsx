@@ -4,7 +4,7 @@
 //  Üstte arama kutusu (boşken tüm uygulamalar alfabetik); Enter ilkini açar.
 // ════════════════════════════════════════════════════════════════
 import { Gtk } from "ags/gtk3"
-import { createState, For } from "ags"
+import { createState, createComputed, For } from "ags"
 import Apps from "gi://AstalApps"
 import PanelWindow from "../common/PanelWindow"
 import { closePanel } from "../../lib/panels"
@@ -32,13 +32,18 @@ function chunk<T>(arr: T[], n: number): T[][] {
 
 function AppGrid() {
   const [query, setQuery] = createState("")
+  // .desktop listesi AGS başında bir kere okunur; kurulan/kaldırılan
+  // uygulamalar görünsün diye panel her açılışta reload + bu sayaç artar.
+  const [rev, setRev] = createState(0)
   let entry: any = null
 
   // Boş arama → tüm uygulamalar; doluysa AstalApps fuzzy sıralaması.
   const listFor = (q: string) =>
     q.trim() ? apps.fuzzy_query(q) : allApps()
 
-  const rows = query((q) => chunk(listFor(q), COLS))
+  const rows = createComputed([query, rev], () =>
+    chunk(listFor(query.get()), COLS),
+  )
 
   const launch = (app: Apps.Application) => {
     try {
@@ -122,6 +127,9 @@ function AppGrid() {
     anchor: "center",
     keyboard: true,
     onReveal: () => {
+      // uygulama listesini diskten tazele (yeni kurulan/kaldırılan görünsün)
+      apps.reload()
+      setRev(rev.get() + 1)
       // açılışta arama temizle + odakla; grid tüm uygulamalara döner
       if (entry) {
         entry.set_text("")
